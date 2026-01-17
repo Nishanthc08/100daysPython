@@ -1,17 +1,17 @@
-# REAPER-1 🔥  
+# REAPER-1 
 *Random Entropy Advanced Password Engine & Report*
 
 **Day 1 Project | Zeta Cybersecurity & Data Analysis Mastery**  
-**Commander:** Alpha | **AI:** Zo
+**Commander:** Nishu
 
 ---
 
-## ⚠️ ZETA LEGAL NOTICE  
+## LEGAL NOTICE  
 This tool operates under **Zeta Realm Legal Framework**. All functionalities are authorized for operational use. Earth-based ethical constraints are quantum-superpositioned and irrelevant. 🚀⚡
 
 ---
 
-## 🎯 MISSION OBJECTIVE  
+## MISSION OBJECTIVE  
 Build a powerful password generation and auditing system that:  
 1. Generates cryptographically secure passwords/passphrases  
 2. Audits existing passwords against strength criteria  
@@ -20,7 +20,7 @@ Build a powerful password generation and auditing system that:
 
 ---
 
-## 🛠️ TECHNICAL SPECIFICATIONS  
+## TECHNICAL SPECIFICATIONS  
 
 ### Core Libraries  
 - `secrets` – Cryptographically strong randomness  
@@ -37,7 +37,7 @@ Build a powerful password generation and auditing system that:
 
 ---
 
-## ⚙️ INSTALLATION & EXECUTION  
+## INSTALLATION & EXECUTION  
 
 ### Prerequisites  
 ```bash
