@@ -115,5 +115,56 @@ class NetScan2:
 
                 except Exception as e:
                     print(f"{Fore.RED}[!]{Style.RESET_ALL} Error Scanning {target}:{port} - {e}")
+        
+        results["end_time"] = datetime.now()
+        results["scan_duration"] = (results["end_time"] - results["start_time"]).total_seconds()
+        results["open_count"] = len(results["open_ports"])
 
+        print(f"{Fore.CYAN}[*]{Style.RESET_ALL} Scan completed in {results['scan_duration']:.2f}s")
+        print(f"{Fore.CYAN}[*]{Style.RESET_ALL} Found {results['open_count']} open ports on {target}")
+
+        return results
+
+    def scan_network(self, network: str, ports: List[int] = None):
+        """Scan multiple hosts in a network range."""
+        try:
+            # Parse network range
+            network_obj = ipaddress.ip_network(network, strict=False)
+            hosts = list(network_obj.hosts())
+
+            print(f"{Fore.MAGENTA}[*]{Style.RESET_ALL} Scanning network: {network}")
+            print(f"{Fore.MAGENTA}[*]{Style.RESET_ALL} Total hosts: {len(hosts)}")
+
+            for i, host in enumerate(hosts[:50]): # Limit to first 50 hosts for demo
+                target = str(host)
+                print(f"{Fore.YELLOW}[*]{Style.RESET_ALL} Scanning host {i+1}/{min(50, len(hosts))}: {target}")
+
+                try:
+                   # Quick ping check (ICMP echo)
+                   sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
+                   sock.settimeout(0.5)
+                   # Note: Raw sockets require admin/root privileges
+                   # This is simplified - in reality use scapy for proper ping
+                   sock.close()
+
+                   # For demo, we'll just scan common ports
+                   result = self.scan_target(target, [22, 80, 443, 3389] if ports is None else ports, max_threads=50) 
+                   
+                   if result["open_count"] > 0:
+                       self.live_hosts.append(result)
+
+                except Exception as e:
+                    continue
+
+        except ValueError as e:
+            print(f"{Fore.RED}[!]{Style.RESET_ALL} Invalid network range: {e}")
+
+    def packet_sniffer(self, interface: str = None, count: int = 20, filter: str = "tcp"):
+        """Sniff network packets (requires scapy and appropriate privileges)."""
+        if not SCAPY_AVAILABLE:
+            print(f"{Fore.RED}[!]{Style.RESET_ALL} Scapy not available. Cannot sniff packets.")
+            return
+        
+        print
+    
         
